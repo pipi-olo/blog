@@ -67,6 +67,32 @@ failfastOnFlagsNotParsed 옵션을 키는 것이 좋습니다. \
 override def failfastOnFlagsNotParsed: Boolean = true
 ```
 
+# Logging
+Twitter Server 는 로깅을 위해 [SLF4J](https://www.slf4j.org) 를 사용합니다.
+* [Logback](https://logback.qos.ch) 은 Twitter Server 에서 권장하는 SLF4J 구현체입니다.
+
+```sbt
+LibraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.7"
+```
+
+## Log Format
+로그 출력 형식을 변경하려면, <kbd>defaultFormatter</kbd> 를 오버라이딩합니다.
+```scala
+override def defaultFormatter = new Formatter(
+  timezone = Some("KST"),
+  prefix = "[yyyy-MM-dd HH:mm:ss.SSS] [%.3s] %s: "
+)
+```
+
+## 로그 레벨 동적 변경
+관리자 인터페이스의 로깅 핸들러를 통해 로그 레벨을 동적으로 변경할 수 있습니다. \
+이를 위해, SLF4J 로깅 라이브러리에 직접 의존하는 대신, Twitter Server 의 로깅 구현에 의존해야 합니다.
+| Implementation          | Dependency                                                                                               |
+|-------------------------|----------------------------------------------------------------------------------------------------------|
+| java.util.logging (JUL) | [twitter-server/slf4j-jdk14](https://github.com/twitter/twitter-server/tree/develop/slf4j-jdk14)         |
+| Log4j                   | [twitter-server/slf4j-log4j12](https://github.com/twitter/twitter-server/tree/develop/slf4j-log4j12)     |
+| Logback (recommended)   | [twitter-server/logback-classic](https://github.com/twitter/twitter-server/tree/develop/logback-classic) |
+
 ## References
 * [Twitter Server GitHub](https://github.com/twitter/twitter-server)
 * [Twitter Server Docs](https://twitter.github.io/twitter-server/)
