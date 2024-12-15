@@ -28,10 +28,10 @@ object MyServer extends TwitterServer {
 ```
 
 # Life Cycle
-Twitter Server 는 com.twitter.app.App 을 상속하기 때문에 c.t.a.App 의 Life Cycle 과 매우 유사합니다.
+Twitter Server 는 com.twitter.app.App 을 상속하기 때문에 c.t.a.App 의 Life Cycle 과 매우 유사합니다. \
 Twitter Server 는 c.t.a.App Life Cycle 에 WarmUp 단계를 추가합니다.
 
-WarmUp 단계에서 외부 트래픽을 수용하기 전, 서버를 워밍업하는 로직을 추가할 수 있습니다.
+WarmUp 단계에서 외부 트래픽을 수용하기 전, 서버를 워밍업하는 로직을 추가할 수 있습니다. \
 warmupComplete() 를 통해 WarmUp 단계 종료 여부를 알 수 있습니다.
 
 
@@ -58,10 +58,10 @@ MyServer
   -what='hello': String to return
 ```
 
-Flag 는 parseArgs 단계에서 값이 정해지기 때문에, 생성자 혹은 onInit 단계에서 flag 를 정의해야 합니다.
-동일하게, Flag 는 preMain 단계부터 읽을 수 있습니다.
+Flag 는 parseArgs 단계에서 값이 정해지기 때문에, \
+생성자 혹은 onInit 단계에서 flag 를 정의해야 합니다.  동일하게, Flag 는 preMain 단계부터 읽을 수 있습니다.
 
-failfastOnFlagsNotParsed 옵션을 키는 것이 좋습니다.
+failfastOnFlagsNotParsed 옵션을 키는 것이 좋습니다. \
 이 옵션을 키면 Flag 가 파싱되기 전에, Flag 에 접근하면 IllegalStateException 가 발생합니다.
 ```scala
 override def failfastOnFlagsNotParsed: Boolean = true
