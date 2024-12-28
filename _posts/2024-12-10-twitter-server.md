@@ -11,7 +11,7 @@ Twitter Finatra 는 Twitter Server 와 Finagle 을 사용합니다. Twitter Fina
 Twitter Server 는 관리자 페이지, 로깅 등 애플리케이션의 공통적인 요소들을 제공합니다.
 
 다음 명령어를 통해 의존성을 추가합니다.
-```sbt
+```text
 LibraryDependencies += "com.twitter" %% "twitter-server" % "24.2.0"
 ```
 
@@ -74,7 +74,7 @@ override def failfastOnFlagsNotParsed: Boolean = true
 Twitter Server 는 로깅을 위해 [SLF4J](https://www.slf4j.org) 를 사용합니다.
 * [Logback](https://logback.qos.ch) 은 Twitter Server 에서 권장하는 SLF4J 구현체입니다.
 
-```sbt
+```text
 LibraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.7"
 ```
 
@@ -90,6 +90,7 @@ override def defaultFormatter = new Formatter(
 ## 로그 레벨 동적 변경
 관리자 인터페이스의 로깅 핸들러를 통해 로그 레벨을 동적으로 변경할 수 있습니다. \
 이를 위해, SLF4J 로깅 라이브러리에 직접 의존하는 대신, Twitter Server 의 로깅 구현에 의존해야 합니다.
+
 | Implementation          | Dependency                                                                                               |
 |-------------------------|----------------------------------------------------------------------------------------------------------|
 | java.util.logging (JUL) | [twitter-server/slf4j-jdk14](https://github.com/twitter/twitter-server/tree/develop/slf4j-jdk14)         |
