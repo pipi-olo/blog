@@ -41,9 +41,15 @@ warmupComplete() 를 통해 WarmUp 단계 종료 여부를 알 수 있습니다.
 ## Type Safety
 Flag 는 Scala Type Safety 를 보장합니다.
 ```scala
+import com.twitter.app.Flag
+import com.twitter.server.TwitterServer
+
+import java.net.InetSocketAddress
+
 object MyServer extends TwitterServer {
 
-  val what = flag(name = "what", default = "hello", help = "String to return")
+  val what: Flag[String] = flag(name = "what", default = "hello", help = "String to return")
+  val addr: Flag[InetSocketAddress] = flag(name = "bind", default = new InetSocketAddress(0), help = "Bind address")
   
   def main(): Unit = {
     print("Hello World!")
@@ -58,6 +64,7 @@ $ java -jar target/myserver-1.0.0-SNAPSHOT.jar -help
 
 MyServer
   -what='hello': String to return
+  -bing=':0': Bind address
 ```
 
 ## Phase parsing args
@@ -97,6 +104,7 @@ override def defaultFormatter = new Formatter(
 | Log4j                   | [twitter-server/slf4j-log4j12](https://github.com/twitter/twitter-server/tree/develop/slf4j-log4j12)     |
 | Logback (recommended)   | [twitter-server/logback-classic](https://github.com/twitter/twitter-server/tree/develop/logback-classic) |
 
-## References
+
+# References
 * [Twitter Server GitHub](https://github.com/twitter/twitter-server)
 * [Twitter Server Docs](https://twitter.github.io/twitter-server/)
