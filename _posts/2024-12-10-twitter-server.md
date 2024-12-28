@@ -38,6 +38,7 @@ warmupComplete() 를 통해 WarmUp 단계 종료 여부를 알 수 있습니다.
 # Flags
 서버 설정, 조건에 따른 동작 제어에 Flag 를 사용할 수 있습니다.
 
+## Type Safety
 Flag 는 Scala Type Safety 를 보장합니다.
 ```scala
 object MyServer extends TwitterServer {
@@ -50,6 +51,7 @@ object MyServer extends TwitterServer {
 }
 ```
 
+## Help
 Flag 를 추가하면, 자동으로 help 을 통해 정보를 표시합니다.
 ```shell
 $ java -jar target/myserver-1.0.0-SNAPSHOT.jar -help
@@ -58,11 +60,12 @@ MyServer
   -what='hello': String to return
 ```
 
+## Phase parsing args
 Flag 는 parseArgs 단계에서 값이 정해지기 때문에, \
-생성자 혹은 onInit 단계에서 flag 를 정의해야 합니다.  동일하게, Flag 는 preMain 단계부터 읽을 수 있습니다.
+생성자 혹은 onInit 단계에서 flag 를 정의해야 합니다. 동일하게, Flag 는 preMain 단계부터 읽을 수 있습니다.
 
-failfastOnFlagsNotParsed 옵션을 키는 것이 좋습니다. \
-이 옵션을 키면 Flag 가 파싱되기 전에, Flag 에 접근하면 IllegalStateException 가 발생합니다.
+<kbd>failfastOnFlagsNotParsed</kbd> 옵션을 키는 것이 좋습니다. \
+이 옵션을 키면 Flag 가 파싱되기 전에, Flag 에 접근하면 <kbd>IllegalStateException</kbd> 가 발생합니다.
 ```scala
 override def failfastOnFlagsNotParsed: Boolean = true
 ```
