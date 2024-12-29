@@ -1,7 +1,7 @@
 ---
 title: [Twitter Finatra] Twitter App
 description: >-
-date: 2024-12-06 20:00:00 KST 
+date: 2024-12-06 20:00:00 +0800
 categories: [Backend, Twitter Finatra]
 tags: [Twitter, Finatra, Scala]
 ---

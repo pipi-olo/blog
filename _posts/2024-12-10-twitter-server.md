@@ -2,7 +2,7 @@
 title: [Twitter Finatra] Twitter Server
 description: >-
   Twitter Server 는 관리자 페이지, 로깅 등 애플리케이션의 공통적인 요소들을 제공합니다.
-date: 2024-12-10 22:00:00 KST
+date: 2024-12-10 22:00:00 +0800
 categories: [Backend, Twitter Finatra]
 tags: [Twitter, Finatra, Scala]
 ---
