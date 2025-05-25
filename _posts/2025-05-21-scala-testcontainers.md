@@ -115,5 +115,66 @@ class CassandraRepositoryTest extends AnyFlatSpec with Matchers with TestContain
 ```
 * 각 테스트에 `withContainers` 를 통해서 실행된 컨테이너를 얻을 수 있습니다.
 
+## One More Thing
+### Multi Containers Test
+
+```sbt
+lazy val versions = new {
+  val cassandra     = "4.19.0"
+  val postgresql    = "42.5.1"
+  val logback       = "1.5.18"
+  val scalaTest     = "3.2.19"
+  val testContainer = "0.43.0"
+}
+
+lazy val root = (project in file("."))
+  .configs(IntegrationTest)
+  .settings(Defaults.itSettings)
+  .settings(
+    libraryDependencies ++= Seq(
+      "ch.qos.logback"       % "logback-classic"                 % versions.logback,
+      "org.apache.cassandra" % "java-driver-core"                % versions.cassandra,
+      "org.postgresql"       % "postgresql"                      % versions.postgresql,
+      "org.scalatest"       %% "scalatest"                       % versions.scalaTest     % IntegrationTest,
+      "com.dimafeng"        %% "testcontainers-scala-scalatest"  % versions.testContainer % IntegrationTest,
+      "com.dimafeng"        %% "testcontainers-scala-cassandra"  % versions.testContainer % IntegrationTest,
+      "com.dimafeng"        %% "testcontainers-scala-postgresql" % versions.testContainer % IntegrationTest
+    ),
+    IntegrationTest / fork := true
+  )
+
+```
+* build.sbt 에 `postgresql` 관련 라이브러리를 추가합니다.
+
+```scala
+import com.dimafeng.testcontainers.lifecycle.and
+import com.dimafeng.testcontainers.{CassandraContainer, PostgreSQLContainer}
+import com.dimafeng.testcontainers.scalatest.TestContainersForAll
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
+import org.testcontainers.utility.DockerImageName
+
+class ServiceTest extends AnyFlatSpec with Matchers with TestContainersForAll {
+
+  override type Containers = CassandraContainer and PostgreSQLContainer
+
+  override def startContainers(): Containers = {
+    val cassandraContainer = CassandraContainer.Def(dockerImageName = DockerImageName.parse("cassandra:5.0.3")).start()
+    val postgresContainer  = PostgreSQLContainer.Def(dockerImageName = DockerImageName.parse("postgres:9.6.12")).start()
+
+    cassandraContainer and postgresContainer
+  }
+
+  it should "데이터를 저장 및 조회할 수 있다." in withContainers { case cassandraContainer and postgresContainer =>
+
+    ...
+  }
+}
+```
+* `Containers` 타입에 사용할 도커 컨테이너 목록을 정의합니다.
+* `startContainers` 는 도커 컨테이너 목록의 실행 방법을 정의합니다. 각 컨테이너의 시작 후 로직을 정의할 수 있습니다.
+  * `ContainerDef.start()` 는 실행된 컨테이너를 획득합니다.
+* `withContainers` 를 통해서 실행된 컨테이너를 통해 테스트를 진행합니다.
+
 ## References
 * [Testcontainers-scala Github](https://github.com/testcontainers/testcontainers-scala)
