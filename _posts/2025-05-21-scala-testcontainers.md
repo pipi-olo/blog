@@ -63,20 +63,37 @@ lazy val root = (project in file("."))
   * `sbt IntegrationTest/test` 명령어를 통해 테스트를 실행합니다.
 * `IntegrationTest / fork := true` 옵션을 통해 SBT 와 별도의 JVM 에서 테스트를 진행합니다. 이를 통해 컨테이너의 종료를 보장합니다.
 
-### Test
+### Single Container
+
 ```scala
-class CassandraRepositoryTest extends AnyFlatSpec with Matchers with TestContainerForAll {
+import com.datastax.oss.driver.api.core.CqlSession
+import com.dimafeng.testcontainers.CassandraContainer
+import com.dimafeng.testcontainers.scalatest.TestContainerForAll
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
+import org.testcontainers.utility.DockerImageName
+
+class CassandraRepositoryTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll with TestContainerForAll {
   override val containerDef: CassandraContainer.Def = CassandraContainer.Def(dockerImageName = DockerImageName.parse("cassandra:5.0.3"))
 
+  override protected def beforeAll(): Unit = {
+    super.beforeAll()
+    
+    ...
+  }
+  
   override def afterContainersStart(containers: CassandraContainer): Unit = {
-    super.afterContainersStart(containers)
-
+    ...
+  }
+  
+  override def beforeContainersStop(containers: CassandraContainer): Unit = {
     ...
   }
 
-  override def beforeContainersStop(containers: CassandraContainer): Unit = {
-    super.beforeContainersStop(containers)
-
+  override protected def afterAll(): Unit = {
+    super.afterAll()
+    
     ...
   }
 }
@@ -85,7 +102,9 @@ class CassandraRepositoryTest extends AnyFlatSpec with Matchers with TestContain
   * `containerDef` 는 컨테이너 빌드 방법을 정의합니다. `container` 는 실행된 컨테이너를 의미합니다.
   * `ForAllTestContainer` 은 Deprecated 되었습니다. (v0.34.0)
   * `TestContainerForAll`, `TestContainerForEach`, `TestContainersForAll`, `TestContainersForEach` 총 4가지 옵션이 존재합니다.
-* `afterContainersStart`, `beforeContainersStop` 을 통해서 각 컨테이너 시작 후, 컨테아너 종료 전 작업을 정의할 수 있습니다. 
+* `afterContainersStart`, `beforeContainersStop` 을 통해서 각 컨테이너 시작 후, 컨테아너 종료 전 작업을 정의할 수 있습니다.
+* `beforeAll` 혹은 `afterAll` 을 오버라이딩 할 때는 반드시 `super.beforeAll` 혹은 `super.afterAll` 을 호출해야 합니다.
+  * 그렇지 않은 경우, 컨테이너 시작 및 종료를 보장하지 않습니다. 
 * `com.dimafeng.testcontainers` 라이브러리를 사용해야 합니다.
 
 ```scala
@@ -115,8 +134,7 @@ class CassandraRepositoryTest extends AnyFlatSpec with Matchers with TestContain
 ```
 * 각 테스트에 `withContainers` 를 통해서 실행된 컨테이너를 얻을 수 있습니다.
 
-## One More Thing
-### Multi Containers Test
+### Multi Containers
 
 ```sbt
 lazy val versions = new {
@@ -142,7 +160,6 @@ lazy val root = (project in file("."))
     ),
     IntegrationTest / fork := true
   )
-
 ```
 * build.sbt 에 `postgresql` 관련 라이브러리를 추가합니다.
 
