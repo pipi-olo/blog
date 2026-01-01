@@ -21,6 +21,7 @@ Java / Kotlin 기반의 대표적인 프레임워크인 Spring Boot 와 Quarkus 
 | 개발 생산성    | 라이브 코딩, 핫 리로드 지원         | 다양한 개발 도구 지원      |
 | 클라우드 네이티브 | 컨테이너화 및 서버리스에 최적화        | 클라우드 네이티브 지원      | 
 | 확장성       | 수평 확장에 최적화               | 수평 및 수직 확장 지원     |
+| 커뮤니티 지원   | 성장 중                     | 매우 활발함            |
 
 ## CRUD Application Example
 Quarkus 와 Kotlin 을 사용하여 간단한 Post Service 를 만드는 예제를 살펴봅니다. 이 예제에서는 RESTful API 를 통해 게시물을 생성, 조회, 수정, 삭제하는 기능을 구현합니다.
@@ -30,7 +31,7 @@ Quarkus 프로젝트를 생성하기 위해 [Quarkus Initializer](https://code.q
 Kotlin 언어와 필요한 확장 기능(예: RESTEasy, Hibernate ORM 등)을 선택하여 프로젝트를 생성합니다. 다음은 IntelliJ IDEA 를 사용하여 Quarkus 프로젝트를 생성하는 방법입니다.
 
 ![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/intellij-quarkus-new-project.png)
-* Java 는 최소 버전 17 이상이 필요합니다.
+* Java 는 최소 17 버전 이상이 필요합니다.
 
 ![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/intellij-quarkus-new-project-library.png)
 * **REST**, **REST Jackson** 은 REST API 서버 구현을 위해 필요합니다.
@@ -44,8 +45,8 @@ Kotlin 언어와 필요한 확장 기능(예: RESTEasy, Hibernate ORM 등)을 �
 * **SmallRye OpenAPI** 는 OpenAPI 스펙을 기반으로 API 문서를 자동 생성해주는 확장 기능입니다.
 
 ### Main Function
-Quarkus Application 에서 `main` 함수는 선택 사항입니다. 개발자가 ``main`` 함수를 직접 작성하지 않아도 애플리케이션을 실행할 수 있습니다.
-Quarkus 는 내부적으로 `Quarkus.run()` 메서드를 호출하여 애플리케이션을 시작합니다. `main` 함수를 작성하여 애플리케이션의 진입점을 명시적으로 정의할 수도 있습니다.
+Quarkus Application 에서 `main` 함수는 선택 사항입니다. 개발자가 ``main`` 함수를 작성하지 않아도 애플리케이션을 실행할 수 있습니다.
+Quarkus 는 내부적으로 `Quarkus.run()` 메서드를 호출하여 애플리케이션을 시작합니다. 다음과 같이 `main` 함수를 작성하여 애플리케이션의 진입점을 명시적으로 정의할 수도 있습니다.
 
 ```kotlin
 import io.quarkus.runtime.Quarkus
@@ -82,7 +83,7 @@ class Post: PanacheEntity() {
   * Hibernate ORM 은 이 어노테이션이 붙은 클래스를 데이터베이스 테이블과 매핑합니다.
   * Quarkus 개발 모드에서 자동으로 데이블을 생성합니다.
   * `jakarta.persistence` 는 자바 진영의 표준 데이터베이스 연동 규격(JPA) 입니다.
-* `PanacheEntity` 상속 및 `PanacheCompanion` 동반 갹체를 통해 기본적인 CRUD 기능을 사용할 수 있습니다.
+* `PanacheEntity` 상속 및 `PanacheCompanion` 동반 객체를 통해 기본적인 CRUD 기능을 사용할 수 있습니다.
   * 기본 키 필드(`id: Long`) 가 자동으로 생성됩니다.
     * 별도로 기본 키 필드를 관리하고 싶다면, `PanacheEntityBase` 를 상속받아 직접 필드를 정의할 수 있습니다.
   * 별도 Repository 클래스를 작성하지 않아도 `Post.findById(id)`, `Post.deleteById(id)` 등 데이터 저장, 조회, 수정, 삭제 기능을 사용할 수 있습니다.
