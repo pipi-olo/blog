@@ -30,10 +30,10 @@ Quarkus 와 Kotlin 을 사용하여 간단한 Post Service 를 만드는 예제�
 Quarkus 프로젝트를 생성하기 위해 [Quarkus Initializer](https://code.quarkus.io/) 혹은 IntelliJ IDEA 를 사용하여 프로젝트를 생성할 수 있습니다.
 Kotlin 언어와 필요한 확장 기능(예: RESTEasy, Hibernate ORM 등)을 선택하여 프로젝트를 생성합니다. 다음은 IntelliJ IDEA 를 사용하여 Quarkus 프로젝트를 생성하는 방법입니다.
 
-![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/intellij-quarkus-new-project.png)
+![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-with-kotlin/intellij-quarkus-new-project.png)
 * Java 는 최소 17 버전 이상이 필요합니다.
 
-![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/intellij-quarkus-new-project-library.png)
+![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-with-kotlin/intellij-quarkus-new-project-library.png)
 * **REST**, **REST Jackson** 은 REST API 서버 구현을 위해 필요합니다.
   * **REST** 는 JAX-RS(Java API for RESTful Web Services) 표준을 구현한 Quarkus 확장 기능입니다. RESTful 웹 서비스를 쉽게 개발할 수 있도록 도와줍니다.
   * **REST Jackson** 은 객체를 JSON 데이터로 변환(직렬화) 혹은 JSON 을 객체로 변환(역직렬화) 해주는 Quarkus 확장 기능입니다. REST API 에서 JSON 형식의 요청과 응답을 처리할 수 있게 해줍니다.
@@ -193,14 +193,14 @@ Quarkus 애플리케이션을 개발 모드로 실행하려면, 프로젝트 루
 ### Dev UI
 Quarkus 는 개발자 생산성을 높이기 위해 Dev UI 를 제공합니다. Dev UI 는 애플리케이션의 상태, 설정, 확장 기능 등을 시각적으로 확인하고 관리할 수 있는 웹 인터페이스입니다.
 
-![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/quarkus-dev-ui.png)
-![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/quarkus-dev-ui-dev-services.png)
+![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-with-kotlin/quarkus-dev-ui.png)
+![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-with-kotlin/quarkus-dev-ui-dev-services.png)
 * Dev Service 에서 실행 중인 MySQL 도커 컨테이너 정보를 확인할 수 있습니다.
 
 ### Swagger UI
 `quarkus-smallrye-openapi` 라이브러리를 포함하면, OpenAPI 스펙을 기반으로 API 문서를 자동 생성할 수 있습니다. Swagger UI 를 통해 API 문서를 시각적으로 확인하고 테스트할 수 있습니다.
 
-![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-kotlin/quarkus-swagger-ui.png)
+![img.png](/assets/img/posts/backend/qurkus/introduce-to-quarkus-with-kotlin/quarkus-swagger-ui.png)
 * Swagger UI 를 통해 API 엔드포인트를 테스트할 수 있습니다.
 
 ## References
